@@ -1,53 +1,32 @@
-const mongoose = require('mongoose');
+
 const express = require('express');
-const collection= require('mongo')
 const cors = require('cors');
+const Bot = require('node-telegram-bot-api');
 const app = express();
 
+const token = '6647327011:AAErnbPs_krurmVxMbgai1SnWMYerC5-0lo'; // Replace with your Telegram bot token
 app.use(cors());
-mongoose.connect('mongodb+srv://cluster0.6witiyw.mongodb.net/', {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-  user:"arfaouisaber140",
-  pass:"sabersabersaber"
-})
-.then(() => console.log('Connected to MongoDB...'))
-.catch(err => console.error('Could not connect to MongoDB:', err));
-
-app.use(express.json())
-app.use(express.urlencoded({extended:true}));
-const genreSchema = new mongoose.Schema({
-    name: {
-      type: String,
-      required: true,
-      minlength: 5,
-      maxlength: 50
-    }
-  });
-
-const Genre = mongoose.model('Genre', genreSchema);
+app.use(express.json()); // Middleware to parse JSON request bodies
 
 
-
-app.get('/', async (req, res) => {
-    const genres = await Genre.find().sort('name');
-    console.log(genres)
-    return res.json(genres);
-  });
-
- app.post('/', async (req, res) => {
-
-    const{msg}=req.body
-    
-  
-    let genre = new Genre({ name: msg });
-    genre = await genre.save();
-    
-    res.send(genre);
-  });
-  
+const bot = new Bot(token, { polling: true });
 
 
+app.post('/', async (req, res) => {
+  const { msg } = req.body;
+
+  if (!msg) {
+    return res.status(400).json({ error: 'Message (msg) is required in the request body' });
+  }
+
+  try {
+    // Send the message to Telegram
+    bot.sendMessage('5881759396', msg); // Replace 'YOUR_CHAT_ID' with the chat ID of the recipient
+  } catch (error) {
+    console.error('Error saving DATA:', error);
+    return res.status(500).json({ error: 'Internal Server Error' });
+  }
+});
 
 const port = process.env.PORT || 5000;
 app.listen(port, () => console.log(`Listening on port ${port}...`));
