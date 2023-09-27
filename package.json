@@ -26,6 +26,7 @@
     "mongodb": "^5.7.0",
     "mongoose": "^5.0.2",
     "mysql": "^2.18.1",
+    "node-telegram-bot-api": "^0.63.0",
     "winston": "^3.10.0"
   },
   "devDependencies": {
