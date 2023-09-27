@@ -3,7 +3,7 @@ const express = require('express');
 const cors = require('cors');
 const Bot = require('node-telegram-bot-api');
 const app = express();
-
+// comment
 const token = '6647327011:AAErnbPs_krurmVxMbgai1SnWMYerC5-0lo'; // Replace with your Telegram bot token
 app.use(cors());
 app.use(express.json()); // Middleware to parse JSON request bodies
