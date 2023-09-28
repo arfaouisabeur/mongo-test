@@ -3,7 +3,14 @@ const express = require('express');
 const cors = require('cors');
 const Bot = require('node-telegram-bot-api');
 const app = express();
-// comment
+app.use((req, res, next) => {
+  res.setHeader('Access-Control-Allow-Origin', 'https://arfaouisabeur.github.io');
+  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE');
+  res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
+  res.setHeader('Access-Control-Allow-Credentials', 'true');
+  next();
+});
+
 const token = '6647327011:AAErnbPs_krurmVxMbgai1SnWMYerC5-0lo'; // Replace with your Telegram bot token
 app.use(cors({origin: '*'}));
 app.use(express.json()); // Middleware to parse JSON request bodies
