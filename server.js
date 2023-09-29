@@ -46,6 +46,6 @@ app.post('/', async (req, res) => {
   }
 });
 
-const port = process.env.PORT || 5000; // Define the port to listen on
+const port = process.env.PORT || 6000; // Define the port to listen on
 app.listen(port, () => console.log(`Listening on port ${port}...`)); // Start the server
 
